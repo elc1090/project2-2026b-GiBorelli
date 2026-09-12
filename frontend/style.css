@@ -1,0 +1,16 @@
+html { color-scheme: light; }
+
+body {
+  margin: 0;
+  font-family: 'Verdana', 'Trebuchet MS', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  overflow-x: hidden;
+}
+
+button, input, select {
+  font: inherit;
+}
+
+button { cursor: pointer; }
+
