@@ -7,3 +7,5 @@ Tecnologias escolhidas:
 * Banco de Dados: PostGresSQL
 * Linguagens Front-end: HTML, CSS, JavaScript e Blockly
 * Deploy: Vercel + Render
+
+> O Blockly é uma biblioteca de desenvolvimento de código aberto da Raspberry Pi Foundation, originalmente desenvolvida no Google. Ele cria uma interface de programação visual que utiliza blocos de arrastar e soltar.
