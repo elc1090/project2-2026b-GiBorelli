@@ -78,6 +78,21 @@ const questions = [
     id: 'questao2',
     title: 'Questão 2',
     statement: 'Crie um algoritmo que mostre se 13 é menor que 18.'
+  },
+  {
+    id: 'questao3',
+    title: 'Questão 3',
+    statement: 'Pense em um código que indique se uma pessoa, de acordo com a idade, pode votar ou não (considerando as leis do Brasil). Monte-o no espaço de blocos.'
+  },
+  {
+    id: 'questao4',
+    title: 'Questão 4',
+    statement: 'Crie um algoritmo que mostre se 13 é menor que 18.'
+  },
+  {
+    id: 'questao5',
+    title: 'Questão 5',
+    statement: 'Crie um algoritmo que mostre se 13 é menor que 18.'
   }
 ];
 
@@ -168,22 +183,24 @@ const attemptsByQuestion = {};
 async function enviaFastAPI() {
   if (!workspace || !currentQuestionId) return;
 
-  const nome_usuario = document.getElementById('nome-usuario').value.trim();
+  const nome = document.getElementById('nome-usuario').value.trim();
   const code = Blockly.Python.workspaceToCode(workspace);
   const workspaceJson = Blockly.serialization.workspaces.save(workspace);
   const nTentativas = (attemptsByQuestion[currentQuestionId] ?? 0) + 1;
 
   attemptsByQuestion[currentQuestionId] = nTentativas;
+  if (!nome) {
+    alert('Digite seu nome antes de executar.');
+    return;
+  }
 
   try {
     const resposta = await fetch('https://conecta-blocos-giborelli.onrender.com/run-blocks', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        nome: nomeUsuario,
-        nome_usuario: nomeUsuario,
+        nome,
         id_questao: currentQuestionId,
-        question_id: currentQuestionId,
         n_tentativas: nTentativas,
         code,
         workspace_json: workspaceJson

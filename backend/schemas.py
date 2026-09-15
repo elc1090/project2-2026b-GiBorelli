@@ -1,10 +1,14 @@
 from pydantic import BaseModel, Field
 
-class BlocklyData(BaseModel):
-    nome: str | None = None
-    nome_usuario: str | None = None
-    id_questao: str | None = None
-    question_id: str | None = None
-    n_tentativas: int = Field(default=1, ge=1)
-    code: str | None = None
+class TentativaCreate(BaseModel):
+    nome: str = Field(min_length=1)
+    id_questao: str = Field(min_length=1)
+    n_tentativas: int = Field(ge=1)
+    code: str = ""
+    workspace_json: dict | None = None
+
+
+class GabaritoCreate(BaseModel):
+    id_questao: str = Field(min_length=1)
+    code: str = Field(min_length=1)
     workspace_json: dict | None = None

@@ -27,14 +27,24 @@ body {
   overflow-x: hidden;
 }
 
-button,
-input,
-select {
+button, input, select {
   font: inherit;
 }
 
 button {
   cursor: pointer;
+}
+
+input, select {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  padding: 10px 12px;
+  background: white;
+  color: var(--text);
+  outline: none;
+  margin-top: 0.5rem;
 }
 
 .topbar {

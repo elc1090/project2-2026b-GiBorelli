@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, inspect, text
 from sqlalchemy.orm import sessionmaker
 
 from models import Base
@@ -22,6 +22,17 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 def init_db():
     Base.metadata.create_all(bind=engine)
+
+    columns = {column["name"] for column in inspect(engine).get_columns("tentativas")}
+    with engine.begin() as connection:
+        if "code" not in columns:
+            connection.execute(
+                text("ALTER TABLE tentativas ADD COLUMN code TEXT NOT NULL DEFAULT ''")
+            )
+        if "workspace_json" not in columns:
+            connection.execute(
+                text("ALTER TABLE tentativas ADD COLUMN workspace_json JSON")
+            )
 
 def get_db():
     db = SessionLocal()
