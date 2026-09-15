@@ -176,7 +176,7 @@ async function enviaFastAPI() {
   attemptsByQuestion[currentQuestionId] = nTentativas;
 
   try {
-    const resposta = await fetch('http://127.0.0.1:8000/run-blocks', {
+    const resposta = await fetch('https://conecta-blocos-giborelli.onrender.com/run-blocks', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
