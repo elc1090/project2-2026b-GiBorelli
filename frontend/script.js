@@ -163,20 +163,30 @@ voltarHomeBtn.addEventListener('click', () => {
 executarBtn.addEventListener('click', enviaFastAPI);
 
 
-async function enviaFastAPI() {
-  if (!workspace) return;
+const attemptsByQuestion = {};
 
+async function enviaFastAPI() {
+  if (!workspace || !currentQuestionId) return;
+
+  const nome_usuario = document.getElementById('nome-usuario').value.trim();
   const code = Blockly.Python.workspaceToCode(workspace);
   const workspaceJson = Blockly.serialization.workspaces.save(workspace);
+  const nTentativas = (attemptsByQuestion[currentQuestionId] ?? 0) + 1;
+
+  attemptsByQuestion[currentQuestionId] = nTentativas;
 
   try {
     const resposta = await fetch('http://127.0.0.1:8000/run-blocks', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        nome: nomeUsuario,
+        nome_usuario: nomeUsuario,
+        id_questao: currentQuestionId,
+        question_id: currentQuestionId,
+        n_tentativas: nTentativas,
         code,
-        workspace_json: workspaceJson,
-        question_id: currentQuestionId
+        workspace_json: workspaceJson
       })
     });
 

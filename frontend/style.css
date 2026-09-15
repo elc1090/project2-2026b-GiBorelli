@@ -209,6 +209,12 @@ button {
   transform: translateY(-1px);
 }
 
+.logo-blockly {
+  display: block;
+  min-height: 24px;
+  margin-left: 2rem;
+}
+
 @media (max-width: 700px) {
   body {
     padding: 0 0.75rem;

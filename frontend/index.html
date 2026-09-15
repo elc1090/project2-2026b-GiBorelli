@@ -18,15 +18,24 @@
   <main class="app-shell">
     <section id="home-view" class="view">
       <div class="section-header">
+        <h2>Preencha com o seu nome: </h2>
+        <input id="nome-usuario" type="text" placeholder="Digite seu nome" />
+      </div>
+
+      <div class="section-header">
         <h2>Selecione uma questão</h2>
       </div>
       <div id="lista-questoes" class="questao-list" aria-live="polite"></div>
     </section>
 
-    <button id="voltar-home-btn" class="secondary-btn hidden" type="button">Voltar para questões</button>
+    <button id="voltar-home-btn" class="secondary-btn hidden" type="button">
+      <img src="img\seta-esq.png" alt="Seta para esquerda. Retorna" width="25px"/>
+      Voltar para as questões
+    </button>
+
     <section id="question-view" class="view hidden">
       <div class="question-detalhe">
-        <!-- <p class="eyebrow">Questão atual</p> -->
+        <!--<p class="eyebrow">Questão atual</p>-->
         <h2 id="titulo-questao"></h2>
         <p id="enunciado-questao"></p>
       </div>
@@ -40,6 +49,11 @@
       </div>
     </section>
   </main>
+
+  <div id="footer">
+    <img class="logo-blockly" src="img\built-with-blockly-badge-white.png" a="https://www.blockly.com"
+    alt="Acesso a biblioteca auxiliar Blockly" height="50px">
+  </div>
 
   <script src="https://unpkg.com/blockly/blockly.min.js"></script>
   <script src="https://unpkg.com/blockly/python_compressed.js"></script>

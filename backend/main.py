@@ -1,16 +1,10 @@
-from fastapi import FastAPI
-import uvicorn
-import os
-from dotenv import load_dotenv
-from fastapi.openapi.utils import get_openapi
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-#from fastapi.security import OAuth2PasswordBearer
-from database import engine
-from pydantic import BaseModel
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import Session
 
-
-load_dotenv(".env")
+from database import get_db, init_db
+from models import Tentativa
+from schemas import BlocklyData
 
 app = FastAPI()
 
@@ -22,21 +16,42 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-class BlocklyData(BaseModel):
-    code: str
-    workspace_json: dict | None = None
 
-# @app.get("/")
-# def read_root():
-#     return {"Hello": "World"}
+@app.on_event("startup")
+def startup_event():
+    init_db()
+
 
 @app.post("/run-blocks")
-async def run_blockly_logic(data: BlocklyData):
+async def run_blockly_logic(data: BlocklyData, db: Session = Depends(get_db)):
     try:
+        nome = (data.nome or data.nome_usuario or "").strip()
+        id_questao = data.id_questao
+
+        if not nome or not id_questao:
+            return {
+                "status": "error",
+                "message": "Nome e escolha da questão são obrigatórios."
+            }
+
+        tentativa = Tentativa(
+            nome=nome,
+            id_questao=id_questao,
+            n_tentativas=data.n_tentativas,
+        )
+
+        db.add(tentativa)
+        db.commit()
+        db.refresh(tentativa)
+
         return {
             "status": "success",
+            "message": "Tentativa salva com sucesso.",
+            "nome": nome,
+            "id_questao": id_questao,
+            "n_tentativas": data.n_tentativas,
             "received_code": data.code,
-            "message": "Os dados do Blockly foram processados"
+            "tentativa_id": tentativa.id,
         }
     except Exception as e:
         return {"status": "error", "message": str(e)}
