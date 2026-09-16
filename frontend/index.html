@@ -18,14 +18,19 @@
   <main class="app-shell">
     <section id="home-view" class="view">
       <div class="section-header">
-        <h2>Preencha com o seu nome: </h2>
+        <h2>Preencha com o seu nome</h2>
         <input id="nome-usuario" type="text" placeholder="Digite seu nome" />
       </div>
+
+      <button id="estatisticas-btn" class="secondary-btn" type="button">
+        Estatísticas
+      </button>
 
       <div class="section-header">
         <h2>Selecione uma questão</h2>
       </div>
       <div id="lista-questoes" class="questao-list" aria-live="polite"></div>
+
     </section>
 
     <button id="voltar-home-btn" class="secondary-btn hidden" type="button">
@@ -47,6 +52,14 @@
       <div class="action-bar">
         <button id="executar-btn" type="button">Executar</button>
       </div>
+    </section>
+
+    <section id="statistics-view" class="view hidden">
+      <div class="question-detalhe">
+        <p class="eyebrow">Estatísticas</p>
+        <h2 id="nome-estatisticas">Estatísticas</h2>
+      </div>
+      <div id="lista-estatisticas" class="estatistica-list" aria-live="polite"></div>
     </section>
   </main>
 

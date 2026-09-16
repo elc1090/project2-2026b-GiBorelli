@@ -9,6 +9,7 @@ class Base(DeclarativeBase):
 
 class Tentativa(Base):
     __tablename__ = "tentativas"
+    __table_args__ = (UniqueConstraint("nome", "id_questao", name="uq_tentativa_nome_questao"),)
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     nome: Mapped[str] = mapped_column(String, nullable=False, index=True)

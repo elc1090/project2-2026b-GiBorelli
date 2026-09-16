@@ -36,7 +36,7 @@ button {
 }
 
 input, select {
-  width: 100%;
+  width: 80%;
   min-height: 44px;
   border: 1px solid var(--line);
   border-radius: 11px;
@@ -149,6 +149,32 @@ input, select {
   font-weight: 600;
 }
 
+#estatisticas-btn {
+  margin-bottom: 1.25rem;
+}
+
+.estatistica-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.estatistica-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.estatistica-item strong {
+  color: var(--accent);
+  white-space: nowrap;
+}
+
 .question-detalhe {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -222,7 +248,15 @@ input, select {
 .logo-blockly {
   display: block;
   min-height: 24px;
-  margin-left: 2rem;
+  margin-bottom: 2rem;
+  padding-top: 5px;
+}
+
+#footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 1.5rem;
+  border-top: 2px solid #1f2937;
 }
 
 @media (max-width: 700px) {

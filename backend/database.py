@@ -34,6 +34,22 @@ def init_db():
                 text("ALTER TABLE tentativas ADD COLUMN workspace_json JSON")
             )
 
+        connection.execute(
+            text(
+                "DELETE FROM tentativas "
+                "WHERE id NOT IN ("
+                "SELECT MIN(id) FROM tentativas GROUP BY nome, id_questao"
+                ")"
+            )
+        )
+        connection.execute(
+            text(
+                "CREATE UNIQUE INDEX IF NOT EXISTS "
+                "uq_tentativas_nome_questao_idx "
+                "ON tentativas (nome, id_questao)"
+            )
+        )
+
 def get_db():
     db = SessionLocal()
     try:

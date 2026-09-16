@@ -26,15 +26,28 @@ def startup_event():
 @app.post("/run-blocks")
 async def run_blockly_logic(data: TentativaCreate, db: Session = Depends(get_db)):
     try:
-        tentativa = Tentativa(
-            nome=data.nome.strip(),
-            id_questao=data.id_questao,
-            n_tentativas=data.n_tentativas,
-            code=data.code,
-            workspace_json=data.workspace_json,
+        nome = data.nome.strip()
+        tentativa = db.scalar(
+            select(Tentativa).where(
+                Tentativa.nome == nome,
+                Tentativa.id_questao == data.id_questao,
+            )
         )
 
-        db.add(tentativa)
+        if tentativa:
+            tentativa.n_tentativas = data.n_tentativas
+            tentativa.code = data.code
+            tentativa.workspace_json = data.workspace_json
+        else:
+            tentativa = Tentativa(
+                nome=nome,
+                id_questao=data.id_questao,
+                n_tentativas=data.n_tentativas,
+                code=data.code,
+                workspace_json=data.workspace_json,
+            )
+            db.add(tentativa)
+
         db.commit()
         db.refresh(tentativa)
 
