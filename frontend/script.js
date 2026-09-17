@@ -72,11 +72,7 @@ const voltarHomeBtn = $('voltar-home-btn');
 const executarBtn = $('executar-btn');
 const estatisticasBtn = $('estatisticas-btn');
 
-const apiUrl = window.API_URL || (
-  window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-    ? 'http://127.0.0.1:8000'
-    : 'https://conecta-blocos-giborelli.onrender.com'
-);
+const apiUrl = 'https://conecta-blocos-giborelli.onrender.com';
 
 const questions = [
   {
@@ -243,8 +239,6 @@ estatisticasBtn.addEventListener('click', showStatistics);
 executarBtn.addEventListener('click', enviaFastAPI);
 
 
-const attemptsByQuestion = {};
-
 async function enviaFastAPI() {
   if (!workspace || !currentQuestionId) return;
 
@@ -256,9 +250,6 @@ async function enviaFastAPI() {
 
   const code = Blockly.Python.workspaceToCode(workspace);
   const workspaceJson = Blockly.serialization.workspaces.save(workspace);
-  const nTentativas = (attemptsByQuestion[currentQuestionId] ?? 0) + 1;
-
-  attemptsByQuestion[currentQuestionId] = nTentativas;
 
   try {
     const resposta = await fetch(`${apiUrl}/run-blocks`, {
@@ -267,7 +258,7 @@ async function enviaFastAPI() {
       body: JSON.stringify({
         nome,
         id_questao: currentQuestionId,
-        n_tentativas: nTentativas,
+        n_tentativas: 1,
         code,
         workspace_json: workspaceJson
       })

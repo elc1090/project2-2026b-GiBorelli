@@ -39,14 +39,14 @@ async def run_blockly_logic(data: TentativaCreate, db: Session = Depends(get_db)
         )
 
         if tentativa:
-            tentativa.n_tentativas = data.n_tentativas
+            tentativa.n_tentativas += 1
             tentativa.code = data.code
             tentativa.workspace_json = data.workspace_json
         else:
             tentativa = Tentativa(
                 nome=nome,
                 id_questao=data.id_questao,
-                n_tentativas=data.n_tentativas,
+                n_tentativas=1,
                 code=data.code,
                 workspace_json=data.workspace_json,
             )
@@ -77,7 +77,7 @@ async def run_blockly_logic(data: TentativaCreate, db: Session = Depends(get_db)
             "gabarito_cadastrado": gabarito is not None,
             "nome": tentativa.nome,
             "id_questao": tentativa.id_questao,
-            "n_tentativas": data.n_tentativas,
+            "n_tentativas": tentativa.n_tentativas,
             "received_code": data.code,
             "tentativa_id": tentativa.id,
         }

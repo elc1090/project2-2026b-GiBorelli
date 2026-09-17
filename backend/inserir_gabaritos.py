@@ -1,4 +1,4 @@
-# Arquivo de exemplo para adicao dos gabaritos no banco de dados da API no Render. Para rodar:
+# Arquivo de exemplo para adicao dos gabaritos no banco de dados da API no Render. Para rodar (dentro de backend):
 #     $env:API_URL="https://conecta-blocos-giborelli.onrender.com"
 #     python inserir_gabaritos.py
 ####################################################################
