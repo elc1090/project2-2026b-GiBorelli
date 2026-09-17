@@ -20,7 +20,14 @@ Proposta: Criar uma ferramenta educacional para crianças aprenderem lógica de 
 **Lucas Xavier Pairé** - Ciência da Computação
 
 ## Feedback/comentário da parceria/cliente/usuário
-Na modalidade A (parceria dev), o foco principal do feedback/comentário estará nas diferenças percebidas no código.
+
+Analisando os códigos, as diferenças estão bem claras por causa dos paradigmas das linguagens e bibliotecas escolhidas.
+
+No frontend, a principal diferença de código está na manipulação do DOM. No arquivo script.js da Giovana, o controle do Blockly é feito com javascript, buscando as divs no DOM e chamando as funções da biblioteca. Em comparação, o meu código não manipula o DOM diretamente, ele manipula uma cópia do DOM, onde o framework React controla o ciclo de vida e os estados dos componentes. Estado seria uma memória interna de um componente que guardam dados mutáveis, então não pude injetar as funções do Blockly diretamente como a Giovana fez.
+
+No backend, existe uma grande diferença da estrutura e verbosidade. O código em python dela é mais centralizado no arquivo main.py, usando o framework FastAPI, ela configura o CORS, a injeção de dependência do banco e a rota, tudo isso em menos de 60 linhas de código. Já no meu backend em Java com Spring Boot foi necessário criar múltiplos arquivos e pacotes separados seguindo uma arquitetura em camadas (Entity, Repository, Service, DTO e Controller) e a tipagem forte da linguagem.
+
+Para o banco de dados, o código dela utiliza o ORM SQLAlchemy, definindo as tabelas como classes no arquivo models.py e extraindo os dados da requisição através da validação do Pydantic no arquivo schemas.py. No meu código, o mapeamento ocorre através de anotações do JPA/Hibernate dentro das entidades Java.
 
 ## Desenvolvimento
 
@@ -61,7 +68,6 @@ O terceiro e último trecho que foi separado é para destacar
 
 ### Ambiente de desenvolvimento
 - VS Code
-- Gemini 3.1 Pro
 - Github Copilot Chat
 
 ## Referências e créditos

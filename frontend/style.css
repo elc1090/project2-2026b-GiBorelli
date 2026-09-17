@@ -36,7 +36,7 @@ button {
 }
 
 input, select {
-  width: 80%;
+  width: 50%;
   min-height: 44px;
   border: 1px solid var(--line);
   border-radius: 11px;
@@ -48,7 +48,7 @@ input, select {
 }
 
 .topbar {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 1.5rem auto 1.25rem;
   padding: 1rem 1.5rem;
   display: flex;
@@ -77,7 +77,7 @@ input, select {
 }
 
 .app-shell {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 0 0 2rem;
 }
@@ -95,6 +95,14 @@ input, select {
 .section-header h2 {
   margin: 0;
   font-size: clamp(1.4rem, 2vw, 2rem);
+}
+
+.section-side {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 50px;
 }
 
 .questao-list {
@@ -253,9 +261,9 @@ input, select {
 }
 
 #footer {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding-bottom: 1.5rem;
+  padding: 0.5rem 0.5rem 1.5rem;
   border-top: 2px solid #1f2937;
 }
 

@@ -18,6 +18,10 @@ app.add_middleware(
 )
 
 
+def normalize_code(code: str) -> str:
+    return "\n".join(line.strip() for line in code.strip().splitlines() if line.strip())
+
+
 @app.on_event("startup")
 def startup_event():
     init_db()
@@ -51,9 +55,26 @@ async def run_blockly_logic(data: TentativaCreate, db: Session = Depends(get_db)
         db.commit()
         db.refresh(tentativa)
 
+        gabarito = db.scalar(
+            select(Gabarito).where(Gabarito.id_questao == data.id_questao)
+        )
+        correta = bool(
+            gabarito
+            and normalize_code(data.code) == normalize_code(gabarito.code)
+        )
+
+        if gabarito is None:
+            mensagem = "Tentativa salva, mas o gabarito desta questão ainda não foi cadastrado."
+        elif correta:
+            mensagem = "Código de acordo com o gabarito."
+        else:
+            mensagem = "Código diferente do gabarito."
+
         return {
             "status": "success",
-            "message": "Tentativa salva com sucesso.",
+            "message": mensagem,
+            "correta": correta,
+            "gabarito_cadastrado": gabarito is not None,
             "nome": tentativa.nome,
             "id_questao": tentativa.id_questao,
             "n_tentativas": data.n_tentativas,
@@ -71,7 +92,7 @@ async def list_attempts(
     id_questao: str | None = None,
     db: Session = Depends(get_db),
 ):
-    query = select(Tentativa).order_by(Tentativa.criado_em.desc())
+    query = select(Tentativa).order_by(Tentativa.id_questao)
     if nome:
         query = query.where(Tentativa.nome == nome)
     if id_questao:

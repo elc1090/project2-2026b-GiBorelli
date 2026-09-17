@@ -274,7 +274,7 @@ async function enviaFastAPI() {
     });
 
     const resultado = await resposta.json();
-    alert('Resposta do backend: ' + JSON.stringify(resultado));
+    alert(resultado.message);
   } catch (e) {
     console.error('Erro ao enviar os dados ao FastAPI:', e);
   }
